@@ -9,15 +9,13 @@ import SwiftUI
 
 struct FlixMovieCell: View {
 	
-	let posterUrl: URL?
-	let title: String
+    var movie: Movie?
 	var onBackgroundPressed: (() -> Void)?
 	
     var body: some View {
 		BasicMovieCell(
-			posterUrl: posterUrl,
-			title: title,
-			onBackgroundPressed: onBackgroundPressed
+            movie: self.movie,
+            onBackgroundPressed: self.onBackgroundPressed
 		)
 		.aspectRatio(3/4, contentMode: .fill)
 		
@@ -26,8 +24,7 @@ struct FlixMovieCell: View {
 
 #Preview {
 	FlixMovieCell(
-		posterUrl: Movie.mock.posterURL,
-		title: Movie.mock.title,
+        movie: Movie.mock,
 		onBackgroundPressed: nil
 	)
 }

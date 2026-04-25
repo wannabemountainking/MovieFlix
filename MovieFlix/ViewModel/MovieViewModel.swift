@@ -23,8 +23,8 @@ final class MovieViewModel: ObservableObject {
 	var nextPages: [MovieCategory: Int] = [:]
 	var cancellables = Set<AnyCancellable>()
 	
-	var randomNowPlayingMovie: Movie {
-		return self.nowPlayingMovies.randomElement() ?? Movie.mock
+	var randomNowPlayingMovie: Movie? {
+		return self.nowPlayingMovies.randomElement()
 	}
 	
 	init() {

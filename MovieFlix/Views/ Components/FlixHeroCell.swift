@@ -9,27 +9,22 @@ import SwiftUI
 
 struct FlixHeroCell: View {
 	
-	let posterURL: URL?
-	let title: String
+    var movie: Movie?
 	var onBackgroundPressed: (() -> Void)?
 	var onDetailButtonPressed: (() -> Void)?
 
     var body: some View {
 		BasicMovieCell(
-			posterUrl: posterURL,
-			title: title,
+            movie: movie,
 			onBackgroundPressed: onBackgroundPressed,
 			onDetailButtonPressed: onDetailButtonPressed
 		)
-		
-		
     }
 }
 
 #Preview {
 	FlixHeroCell(
-		posterURL: Movie.mock.posterURL,
-		title: Movie.mock.title,
+        movie: Movie.mock,
 		onBackgroundPressed: nil,
 		onDetailButtonPressed: nil
 	)

@@ -9,11 +9,9 @@ import SwiftUI
 
 struct BasicMovieCell: View {
 	
-	let posterUrl: URL?
-	let title: String
+    var movie: Movie?
 	var onBackgroundPressed: (() -> Void)?
 	var onDetailButtonPressed: (() -> Void)?
-	
 	
 	var body: some View {
 		ZStack(alignment: .center) {
@@ -21,11 +19,11 @@ struct BasicMovieCell: View {
 				.fill(Color.black)
 				.shadow(radius: 5)
 				.overlay {
-					ImageLoaderView(imageUrl: posterUrl)
+                    ImageLoaderView(imageUrl: movie?.posterURL)
 				}
 			VStack(alignment: .center) {
 				Spacer()
-				Text(title)
+                Text(movie?.title ?? "제목 없음")
 					.font(.largeTitle)
 					.foregroundStyle(.white)
 					.padding(.top)
@@ -62,8 +60,7 @@ struct BasicMovieCell: View {
 
 #Preview {
     BasicMovieCell(
-		posterUrl: Movie.mock.posterURL,
-		title: Movie.mock.title,
+        movie: Movie.mock,
 		onBackgroundPressed: nil,
 		onDetailButtonPressed: nil
 	)
