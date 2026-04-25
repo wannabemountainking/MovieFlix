@@ -12,21 +12,29 @@ import Combine
 final class MovieViewModel: ObservableObject {
     
 	let networkManager = NetworkManager()
+	let provider = CoreDataProvider.shared
 	
 	@Published var nowPlayingMovies: [Movie] = []
 	@Published var popularMovies: [Movie] = []
 	@Published var topRatedMovies: [Movie] = []
 	@Published var upcomingMovies: [Movie] = []
+	@Published var myMovieList: [MyMovie] = []
     
 	var nextPages: [MovieCategory: Int] = [:]
 	var cancellables = Set<AnyCancellable>()
+	
+	var randomNowPlayingMovie: Movie {
+		return self.nowPlayingMovies.randomElement() ?? Movie.mock
+	}
 	
 	init() {
 		for category in MovieCategory.allCases {
 			loadMovies(category: category)
 		}
+		fetchMyMovieList()
 	}
 	
+	// MARK: - Network Method
 	func loadMovies(category: MovieCategory, page: Int = 1) {
 		let networkPublisher = networkManager.fetchMovies(category: category, page: page)
 		networkPublisher
@@ -79,4 +87,25 @@ final class MovieViewModel: ObservableObject {
             }
         }
     }
+	
+	// MARK: - CoreData Method
+	func fetchMyMovieList() {
+		self.myMovieList = provider.fetchMyMovies()
+	}
+	
+	func addToMyList(_ movie: Movie) {
+		let movieID = movie.id
+		guard !isInMyList(movieID: movieID) else {return}
+		provider.addMovie(movie)
+		fetchMyMovieList()
+	}
+	
+	func deleteFromMyList(_ movie: MyMovie) {
+		provider.deleteMovie(movie)
+		fetchMyMovieList()
+	}
+	
+	func isInMyList(movieID: Int) -> Bool {
+		return self.myMovieList.contains(where: { $0.id == movieID })
+	}
 }
