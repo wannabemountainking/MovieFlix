@@ -32,9 +32,9 @@ struct MovieDetailView: View {
 							dismiss()
 						}
 					
-				}
+				} //:HSTACK
 				Spacer()
-			}
+			} //:VSTACK
 			.padding(30)
 			.zIndex(1)
 
@@ -47,26 +47,30 @@ struct MovieDetailView: View {
 						Text(movie.title)
 						Text("개봉일: \(movie.releaseDateKR)")
 						Text("평점: ⭐️ \(movie.voteAverage.formatted(.number.precision(.fractionLength(1))))")
-					}
+					} //:VSTACK
 					Spacer()
 					VStack {
 						MyListButton(inMyList: isInMyList) {
 							isInMyList.toggle()
+                            if isInMyList {
+                                vm.addToMyList(movie)
+                            } else {
+                                vm.deleteFromMyList(movie: movie)
+                            }
 						}
 						Text("My List")
-					}
-				}
+					} //:VSTACK
+				} //:HSTACK
 				
 				VStack(alignment: .leading) {
 					Text("줄거리")
 					Text(movie.overview)
 						.lineLimit(3)
-				}
+				} //:VSTACK
 				
 				Button("상세 보기") {
 					//action
 					let urlString = "https://www.themoviedb.org/movie/\(movie.id)"
-					print(urlString)
 					if let url = URL(string: urlString) {
 						UIApplication.shared.open(url)
 					}
@@ -77,11 +81,16 @@ struct MovieDetailView: View {
 				.frame(maxWidth: .infinity)
 				.background(Color.orange)
 				.clipShape(RoundedRectangle(cornerRadius: 15))
-			}
+			} //:VSTACK
 			.padding()
 			.foregroundStyle(.white)
-		}
-    }
+		} //:ZSTACK
+        .onAppear {
+            print(self.isInMyList, vm.isInMyList(movieID: movie.id), vm.myMovieList)
+            self.isInMyList = vm.isInMyList(movieID: movie.id)
+            print(self.isInMyList, vm.isInMyList(movieID: movie.id))
+        }
+    }//: Body
 }
 
 #Preview {

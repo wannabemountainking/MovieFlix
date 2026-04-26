@@ -30,6 +30,10 @@ struct Movie: Identifiable, Codable, Equatable {
 	
 	var releaseDateKR: String {
 		let dateCompo: [String] = releaseDate.components(separatedBy: "-")
+        guard dateCompo.count == 3 else {
+            print("잘못된 형식입니다.")
+            return ""
+        }
 		return "\(dateCompo[0])년 \(dateCompo[1].first == "0" ? String(dateCompo[1].last ?? "0") : dateCompo[1])월 \(dateCompo[2])일"
 	}
     

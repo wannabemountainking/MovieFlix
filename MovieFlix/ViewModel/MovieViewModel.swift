@@ -109,8 +109,9 @@ final class MovieViewModel: ObservableObject {
 		fetchMyMovieList()
 	}
 	
-	func deleteFromMyList(movie: MyMovie) {
-		provider.deleteMovie(movie)
+	func deleteFromMyList(movie: Movie) {
+        guard let myMovie = self.myMovieList.first(where: { $0.id == movie.id }) else {return}
+		provider.deleteMovie(myMovie)
 		fetchMyMovieList()
 	}
 	

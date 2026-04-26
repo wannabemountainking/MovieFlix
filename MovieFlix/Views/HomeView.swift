@@ -46,17 +46,18 @@ struct HomeView: View {
 					ScrollView(.vertical) {
 						VStack {
 							// MARK: - 중단의 heroCell
-							FlixHeroCell(
-								movie: vm.randomNowPlayingMovie,
-								onBackgroundPressed: { self.selectedMovie = vm.randomNowPlayingMovie },
-								onDetailButtonPressed: { self.selectedMovie = vm.randomNowPlayingMovie }
-							)
-							.aspectRatio(
-								3/4,
-								contentMode: .fill
-							)
-							.padding(.vertical, 15)
-							
+                            if let heroMovie = vm.randomNowPlayingMovie {
+                                FlixHeroCell(
+                                    movie: heroMovie,
+                                    onBackgroundPressed: { self.selectedMovie = heroMovie },
+                                    onDetailButtonPressed: { self.selectedMovie = heroMovie }
+                                )
+                                .aspectRatio(
+                                    3/4,
+                                    contentMode: .fill
+                                )
+                                .padding(.vertical, 15)
+                            }
 							// MARK: - 하단의 횡스크롤
 							
 							VStack(alignment: .leading, spacing: 5) {
