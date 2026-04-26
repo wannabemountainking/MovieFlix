@@ -23,20 +23,22 @@ struct BasicMovieCell: View {
 				}
 			VStack(alignment: .center) {
 				Spacer()
-                Text(movie?.title ?? "제목 없음")
-					.font(.largeTitle)
-					.foregroundStyle(.white)
-					.padding(.top)
-					.padding()
-					.frame(maxWidth: .infinity)
-					.background(
-						LinearGradient(
-							colors: [.clear, .gray.opacity(0.7)],
-							startPoint: .top,
-							endPoint: .bottom
-						)
-					)
+				
 				if let onDetailButtonPressed {
+					Text(movie?.title ?? "제목 없음")
+						.font(.largeTitle)
+						.foregroundStyle(.white)
+						.padding(.top)
+						.padding()
+						.frame(maxWidth: .infinity)
+						.background(
+							LinearGradient(
+								colors: [.white.opacity(0.2), .black.opacity(1.0)],
+								startPoint: .top,
+								endPoint: .bottom
+							)
+						)
+				
 					Button("상세 보기") {
 						onDetailButtonPressed()
 					}
@@ -48,7 +50,7 @@ struct BasicMovieCell: View {
 					.background(Color.pink)
 					.clipShape(RoundedRectangle(cornerRadius: 15))
 					.padding(.bottom)
-				}
+				} //:CONDITION
 			} //:VSTACK
 		} //:ZSTACK
 		.clipShape(RoundedRectangle(cornerRadius: 15))

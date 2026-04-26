@@ -20,6 +20,15 @@ final class MovieViewModel: ObservableObject {
 	@Published var upcomingMovies: [Movie] = []
 	@Published var myMovieList: [MyMovie] = []
     
+	var categoryMovies: [MovieCategory: [Movie]] {
+		return [
+			.nowPlaying: nowPlayingMovies,
+			.popular: popularMovies,
+			.topRated: topRatedMovies,
+			.upcoming: upcomingMovies
+		]
+	}
+	
 	var nextPages: [MovieCategory: Int] = [:]
 	var cancellables = Set<AnyCancellable>()
 	
@@ -29,9 +38,9 @@ final class MovieViewModel: ObservableObject {
 	
 	init() {
 		for category in MovieCategory.allCases {
-			loadMovies(category: category)
+			self.loadMovies(category: category)
 		}
-		fetchMyMovieList()
+		self.fetchMyMovieList()
 	}
 	
 	// MARK: - Network Method
@@ -100,7 +109,7 @@ final class MovieViewModel: ObservableObject {
 		fetchMyMovieList()
 	}
 	
-	func deleteFromMyList(_ movie: MyMovie) {
+	func deleteFromMyList(movie: MyMovie) {
 		provider.deleteMovie(movie)
 		fetchMyMovieList()
 	}

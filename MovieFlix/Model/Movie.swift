@@ -27,6 +27,11 @@ struct Movie: Identifiable, Codable, Equatable {
         guard let path = posterPath else {return nil}
         return URL(string: "https://image.tmdb.org/t/p/w500\(path)")
     }
+	
+	var releaseDateKR: String {
+		let dateCompo: [String] = releaseDate.components(separatedBy: "-")
+		return "\(dateCompo[0])년 \(dateCompo[1].first == "0" ? String(dateCompo[1].last ?? "0") : dateCompo[1])월 \(dateCompo[2])일"
+	}
     
     static func == (lhs: Movie, rhs: Movie) -> Bool {
         return lhs.id == rhs.id

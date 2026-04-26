@@ -26,6 +26,24 @@ enum MovieCategory: CaseIterable {
 	case topRated
 	case upcoming
 	
+	var id: String {
+		switch self {
+		case .nowPlaying: return "nowPlaying"
+		case .popular: return "popular"
+		case .topRated: return "topRated"
+		case .upcoming: return "upcoming"
+		}
+	}
+	
+	var description: String {
+		switch self {
+		case .nowPlaying: return "절찬 상영 중"
+		case .popular: return "관심 집중"
+		case .topRated: return "평단의 찬사"
+		case .upcoming: return "상영 예정"
+		}
+	}
+	
 	var endpoint: String {
 		switch self {
 		case .nowPlaying: return "/movie/now_playing"

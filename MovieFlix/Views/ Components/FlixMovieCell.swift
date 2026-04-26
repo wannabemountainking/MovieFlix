@@ -17,7 +17,7 @@ struct FlixMovieCell: View {
             movie: self.movie,
             onBackgroundPressed: self.onBackgroundPressed
 		)
-		.aspectRatio(3/4, contentMode: .fill)
+		.aspectRatio(2/3, contentMode: .fill)
 		
     }//:body
 }
