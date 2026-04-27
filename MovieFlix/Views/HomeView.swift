@@ -61,7 +61,7 @@ struct HomeView: View {
 							// MARK: - 하단의 횡스크롤
 							
 							VStack(alignment: .leading, spacing: 5) {
-								ForEach(MovieCategory.allCases, id: \.id) { category in
+								ForEach(MovieCategory.allCases, id: \.self) { category in
 									Text(category.description)
 										.font(.title)
 										.foregroundStyle(.white)

@@ -111,11 +111,26 @@ final class MovieViewModel: ObservableObject {
 	
 	func deleteFromMyList(movie: Movie) {
         guard let myMovie = self.myMovieList.first(where: { $0.id == movie.id }) else {return}
-		provider.deleteMovie(myMovie)
-		fetchMyMovieList()
+		deleteCoreDataFromMyList(myMovie: myMovie)
 	}
+    
+    func deleteCoreDataFromMyList(myMovie: MyMovie) {
+        provider.deleteMovie(myMovie)
+        fetchMyMovieList()
+    }
 	
 	func isInMyList(movieID: Int) -> Bool {
 		return self.myMovieList.contains(where: { $0.id == movieID })
 	}
+    
+    func switchTypeFromMyMovieToMovie(myMovie: MyMovie) -> Movie {
+        return Movie(
+            id: Int(myMovie.id),
+            title: myMovie.title,
+            overview: myMovie.overview,
+            posterPath: myMovie.posterPath,
+            releaseDate: myMovie.releaseDate,
+            voteAverage: myMovie.voteAverage
+        )
+    }
 }

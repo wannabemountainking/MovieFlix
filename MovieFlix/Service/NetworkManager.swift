@@ -20,20 +20,11 @@ import Combine
  4. upcoming: /movie/upcoming
  */
 
-enum MovieCategory: CaseIterable {
+enum MovieCategory: CaseIterable, Hashable {
 	case nowPlaying
 	case popular
 	case topRated
 	case upcoming
-	
-	var id: String {
-		switch self {
-		case .nowPlaying: return "nowPlaying"
-		case .popular: return "popular"
-		case .topRated: return "topRated"
-		case .upcoming: return "upcoming"
-		}
-	}
 	
 	var description: String {
 		switch self {
