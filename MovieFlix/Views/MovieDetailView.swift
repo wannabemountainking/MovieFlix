@@ -54,9 +54,15 @@ struct MovieDetailView: View {
 							isInMyList.toggle()
                             if isInMyList {
                                 vm.addToMyList(movie)
+								self.popupMessage = "해당 영화가 My List에 추가되었습니다"
                             } else {
                                 vm.deleteFromMyList(movie: movie)
+								self.popupMessage = "해당 영화가 My List에서 제거되었습니다"
                             }
+							withAnimation(.easeInOut(duration: 0.5)) {
+								self.showPopup = true
+							}
+							print(vm.myMovieList)
 						}
 						Text("My List")
 					} //:VSTACK
@@ -84,6 +90,29 @@ struct MovieDetailView: View {
 			} //:VSTACK
 			.padding()
 			.foregroundStyle(.white)
+			
+			// popup
+			if showPopup {
+				VStack(alignment: .center) {
+					Text(self.popupMessage)
+						.font(.subheadline)
+						.foregroundStyle(.black)
+						.padding()
+						.padding(.horizontal, 20)
+						.background(Color.white)
+						.clipShape(RoundedRectangle(cornerRadius: 10))
+				}
+				.frame(maxWidth: .infinity, maxHeight: .infinity)
+				.onAppear {
+					DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+						withAnimation(.easeInOut(duration: 0.5)) {
+							self.showPopup = false
+						}
+					}
+				}
+				.zIndex(1)
+				.transition(.opacity)
+			}
 		} //:ZSTACK
         .onAppear {
             print(self.isInMyList, vm.isInMyList(movieID: movie.id), vm.myMovieList)

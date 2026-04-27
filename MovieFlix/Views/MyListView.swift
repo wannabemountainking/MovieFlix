@@ -8,9 +8,23 @@
 import SwiftUI
 
 struct MyListView: View {
+	
+	@EnvironmentObject var vm: MovieViewModel
+	let columns = [
+		GridItem(.flexible(), spacing: 10),
+		GridItem(.flexible(), spacing: 10),
+		GridItem(.flexible(), spacing: 10)
+	]
+	
     var body: some View {
-        Text("My List View")
-    }
+		ScrollView(.vertical) {
+			LazyVGrid(columns: columns) {
+
+			}
+		} //:SCROLL
+		.navigationTitle("My List")
+		.navigationBarTitleDisplayMode(.large)
+    }//:body
 }
 
 #Preview {
